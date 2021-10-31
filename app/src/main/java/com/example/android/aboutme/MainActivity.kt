@@ -14,6 +14,7 @@ import com.example.android.aboutme.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val myName: MyName = MyName("Wayne Cockram")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         // new way, using binding to find views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.myName = myName
         binding.doneButton.setOnClickListener {
             addNickName(it)
         }
@@ -42,7 +44,9 @@ class MainActivity : AppCompatActivity() {
 
         // accessing views and set values using binding
         binding.apply {
-            nicknameText.text = nicknameEdit.text
+            //nicknameText.text = nicknameEdit.text
+            //updated to use data class and data binding
+            myName?.nickname = nicknameEdit.text.toString()
             invalidateAll() //refresh the ui with new data
             nicknameEdit.visibility = View.GONE
             doneButton.visibility = View.GONE
